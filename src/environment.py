@@ -14,13 +14,13 @@ class Environment:
         self.size = size
 
         self.agent = entities.Agent()
-        self.lightSources = [entities.LightSource(config.lightsource_luminosity)]
+        self.lightSources = [entities.LightSource(config.light_luminosity)]
 
         self.agent.set_pos2D(self.random_pos())
 
         for light in self.lightSources:
             light.set_pos3D(np.concatenate((self.random_pos(),
-                                            np.array([config.lightsource_height]))))
+                                            np.array([config.light_height]))))
             print("Lightsource position: {}".format(light.get_pos3D()))
 
 

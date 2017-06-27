@@ -22,8 +22,8 @@ class Config:
         self.environment_size = np.array([self.environment_width,
                                           self.environment_height])
 
-        self.lightsource_luminosity = config["light_luminosity"]
-        self.lightsource_height = config["light_height"] # in m
+        self.light_luminosity = config["light_luminosity"]
+        self.light_height = config["light_height"] # in m
 
         k_diffuse_dict = config["k_diffuse"]
         self.k_diffuse = np.array([k_diffuse_dict["r"],
