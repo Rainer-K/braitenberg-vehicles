@@ -2,6 +2,7 @@
 import pygame as pg
 
 from environment import Environment
+from view import View
 import utils
 from utils import config
 
@@ -9,13 +10,12 @@ pg.init()
 
 screen = pg.display.set_mode(config.screen_size, 0, 32)
 
-environment = Environment(config.screen_size)
+environment = Environment(config.environment_size)
+view = View(environment)
 
 print("Lightsource pos: ({}, {})".format(*environment.lightSources[0].pos))
 
-screen.blit(environment.background, (0,0))
-
-intensityLimits = [0, 100]
+screen.blit(view.background, (0,0))
 
 while True:
 
