@@ -1,0 +1,10 @@
+
+
+screen_width: 500
+screen_height: 400
+screen_extent: 1. # bigger dimension of screen equals this in m
+
+lightsource_height: 0.1 # in m
+lightsource_luminosity: 1.
+
+k_diffuse: 10.
