@@ -5,6 +5,51 @@ import pygame as pg
 import utils
 from utils import config
 
+
+class LightSymbolPolygon(pg.Surface):
+
+    def __init__(self):
+        size = config.light_symbol["size"]
+        super(LightSymbolPolygon, self).__init__((size, size), pg.SRCALPHA)
+        # draws a 4 pointed star
+        inset = 0.3
+        points = np.array([
+            (0, 1), (inset, inset), (1, 0), (inset, -inset),
+            (0, -1), (-inset, -inset), (-1, 0), (-inset, inset)
+        ])
+        # scale and shift
+        points *= size / 2
+        points += size / 2
+
+        self.fill((0, 0, 0, 0))
+        color = pg.Color(config.light_symbol["color"])
+        pg.draw.polygon(self, color, points)
+        # pg.draw.aalines(surface, color, True, points)
+
+class LightSymbolStar(pg.Surface):
+
+    def __init__(self):
+        size = config.light_symbol["size"]
+        color = pg.Color(config.light_symbol["color"])
+        super(LightSymbolStar, self).__init__((size, size), pg.SRCALPHA)
+
+        # draws an 8-pointed *
+        sqr = np.sqrt(1**2 / 2)
+        lines = [((0, 1), (0, -1)),
+                 ((-1, 0), (1, 0)),
+                 ((-sqr, -sqr), (sqr, sqr)),
+                 ((-sqr, sqr), (sqr, -sqr))]
+        lines = [ (np.array(p), np.array(q)) for (p, q) in lines]
+
+        # scale and shift
+        lines = [(p*size/2 + size/2, q*size/2 + size/2) for (p, q) in lines]
+
+        self.fill((0, 0, 0, 0))
+        for line in lines:
+            pg.draw.line(self, color, line[0], line[1], 3)
+
+
+
 class View:
 
     def __init__(self, environment):
@@ -12,10 +57,12 @@ class View:
 
         self.environment = environment
 
+        print("Rendering background...", end="", flush=True)
         self.background = pg.Surface(self.screen_size)
         self.render_background()
+        print(" Done.")
 
-        self._light_source_symbol = View.create_light_source_symbol()
+        self._light_source_symbol = LightSymbolStar()
 
         self.light_sources = pg.Surface(self.screen_size).convert_alpha()
         self.render_light_sources()
@@ -46,30 +93,5 @@ class View:
                         pos[1] - symbol_size[1]/2)
 
         self.light_sources.blit(self._light_source_symbol, blit_pos)
-
-
-    @classmethod
-    def create_light_source_symbol(cls):
-        # draws a 4 pointed star
-        inset = 0.3
-        points = np.array([
-            (0,1), (inset,inset), (1,0), (inset, -inset),
-            (0,-1), (-inset,-inset), (-1,0), (-inset,inset)
-        ])
-        # scale and shift
-        size = config.light_symbol["size"]
-        points *= size/2
-        points += size/2
-
-        surface = pg.Surface((size, size)).convert_alpha()
-        surface.fill((0, 0, 0, 0))
-        color = pg.Color(config.light_symbol["color"])
-        pg.draw.polygon(surface, color, points)
-        #pg.draw.aalines(surface, color, True, points)
-
-        return surface
-
-
-
 
 
