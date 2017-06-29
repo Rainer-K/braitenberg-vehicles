@@ -12,10 +12,9 @@ pg.init()
 screen = pg.display.set_mode(config.screen_size, 0, 32)
 
 environment = Environment(config.environment_size)
-view = View(environment)
+view = View(screen, environment)
 
-screen.blit(view.background, (0,0))
-screen.blit(view.light_sources, (0, 0))
+view.blit_to_screen()
 
 def update_title(mouse_pos):
     pos_meters = utils.pixels_to_meters(np.array(mouse_pos))

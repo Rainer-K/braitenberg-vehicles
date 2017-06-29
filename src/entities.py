@@ -21,7 +21,7 @@ class Entity2D(Entity):
 
     def set_pos2D(self, pos2D):
         assert len(pos2D) == 2
-        self._pos = pos2D
+        self._pos = np.array(pos2D)
 
 
 class Entity3D(Entity):
@@ -38,11 +38,24 @@ class Entity3D(Entity):
 
     def set_pos2D(self, pos2D):
         assert len(pos2D) == 2
-        self._pos[0:2] = pos2D
+        self._pos[0:2] = np.array(pos2D)
 
     def set_pos3D(self, pos3D):
         assert len(pos3D) == 3
-        self._pos = pos3D
+        self._pos = np.array(pos3D)
+
+
+class Wheel(Entity2D):
+
+    def __init__(self, position):
+        super(Wheel, self).__init__()
+        self.set_pos2D(position)
+
+
+class Sensor(Entity2D):
+    def __init__(self, position):
+        super(Sensor, self).__init__()
+        self.set_pos2D(position)
 
 
 class Agent(Entity2D):
@@ -51,6 +64,16 @@ class Agent(Entity2D):
         super(Agent, self).__init__()
         # angle around z-axis: alpha
         self.ori = 0.
+
+        self.wheel_left = Wheel((-0.1, 0))
+        self.wheel_right = Wheel((0.1, 0))
+        self.wheels = [self.wheel_left, self.wheel_right]
+
+        self.sensor_left = Sensor((-0.1, 0.1))
+        self.sensor_right = Sensor((0.1, 0.1))
+        self.sensors = [self.sensor_left, self.sensor_right]
+
+
 
 
 class LightSource(Entity3D):

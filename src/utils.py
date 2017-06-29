@@ -32,6 +32,8 @@ class Config:
 
         self.light_symbol = config["light_symbol"]
 
+        self.agent_view = config["agent_view"]
+
 config = Config()
 
 def pixels_to_meters(pixels):

@@ -1,13 +1,14 @@
 import pygame as pg
 
 import utils
-from entityviews import LightSymbolStar
+from entityviews import LightSymbolStar, AgentView
 from utils import config
 
 
 class View:
 
-    def __init__(self, environment):
+    def __init__(self, screen, environment):
+        self.screen = screen
         self.screen_size = config.screen_size
 
         self.environment = environment
@@ -22,7 +23,13 @@ class View:
         self.light_sources = pg.Surface(self.screen_size).convert_alpha()
         self.render_light_sources()
 
+        self.agent = AgentView(environment.agent)
 
+
+    def blit_to_screen(self):
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.light_sources, (0, 0))
+        self.screen.blit(self.agent, (0, 0))
 
     def render_background(self):
         self.background.lock()
