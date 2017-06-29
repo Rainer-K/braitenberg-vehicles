@@ -2,6 +2,7 @@
 import numpy as np
 import yaml
 
+
 class Config:
     def __init__(self):
         with open("../config/config.yaml", "r") as configfile:
@@ -33,6 +34,8 @@ class Config:
         self.light_symbol = config["light_symbol"]
 
         self.agent_view = config["agent_view"]
+        self.agent = config["agent"]
+
 
 config = Config()
 

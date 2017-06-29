@@ -65,14 +65,21 @@ class Agent(Entity2D):
         # angle around z-axis: alpha
         self.ori = 0.
 
-        self.wheel_left = Wheel((-0.1, 0))
-        self.wheel_right = Wheel((0.1, 0))
+        self.size = utils.config.agent["size"]
+        sensor_cfg = utils.config.agent["sensor"]
+        wheel_cfg = utils.config.agent["wheel"]
+        wheel_x = wheel_cfg["x"] * self.size
+        wheel_y = wheel_cfg["y"] * self.size
+        sensor_x = sensor_cfg["x"] * self.size
+        sensor_y = sensor_cfg["y"] * self.size
+
+        self.wheel_left = Wheel((-wheel_x, wheel_y))
+        self.wheel_right = Wheel((wheel_x, wheel_y))
         self.wheels = [self.wheel_left, self.wheel_right]
 
-        self.sensor_left = Sensor((-0.1, 0.1))
-        self.sensor_right = Sensor((0.1, 0.1))
+        self.sensor_left = Sensor((-sensor_x, sensor_y))
+        self.sensor_right = Sensor((sensor_x, sensor_y))
         self.sensors = [self.sensor_left, self.sensor_right]
-
 
 
 

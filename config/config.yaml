@@ -11,4 +11,9 @@ k_diffuse: {r: 1., g: 1., b: 1.}
 
 light_symbol: {size: 32, color: "#FFC300"} # size in pxl
 
+# positions of agents gadgets, with agent height = 1.0
+
+# size in m
+agent: { size: 0.2  , sensor: {x: 0.275, y: 0.9}, wheel: {x: 0.275, y: 0.2} }
+
 agent_view: {size: 0.1} # size in m
